@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CropSense AI — Smart Crop Disease Detection</title>
+  <meta name="description" content="AI-powered crop disease detection for farmers. Upload a leaf photo to identify diseases and get treatment recommendations." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-brand">
+      <span class="brand-leaf">🌿</span>
+      <span class="brand-text">CropSense <span class="brand-ai">AI</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+      <li><a href="#detect" class="nav-link" data-section="detect">Detect</a></li>
+      <li><a href="#dashboard" class="nav-link" data-section="dashboard">Dashboard</a></li>
+      <li><a href="#diseases" class="nav-link" data-section="diseases">Diseases</a></li>
+      <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+      <li>
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="langEN" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" id="langTE" onclick="setLanguage('te')">తె</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="home" class="hero-section">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span data-en="AI-Powered Agricultural Intelligence" data-te="AI ఆధారిత వ్యవసాయ తెలివి">AI-Powered Agricultural Intelligence</span>
+    </div>
+    <h1 class="hero-title">
+      <span data-en="Identify Crop Diseases" data-te="పంట తెగుళ్ళను గుర్తించండి">Identify Crop Diseases</span><br />
+      <span class="hero-gradient" data-en="in Seconds with AI" data-te="AI తో క్షణాల్లో">in Seconds with AI</span>
+    </h1>
+    <p class="hero-subtitle" data-en="Upload a photo of your crop leaf and our deep learning model will instantly analyze it for diseases, providing science-based treatment recommendations." data-te="మీ పంట ఆకు ఫోటోను అప్‌లోడ్ చేయండి, మా AI మోడల్ తెగులును గుర్తించి వైజ్ఞానిక చికిత్స సిఫార్సులను అందిస్తుంది.">
+      Upload a photo of your crop leaf and our deep learning model will instantly analyze it for diseases, providing science-based treatment recommendations.
+    </p>
+    <div class="hero-actions">
+      <a href="#detect" class="btn btn-primary btn-lg">
+        <span>🔬</span>
+        <span data-en="Detect Disease Now" data-te="తెగులు గుర్తించండి">Detect Disease Now</span>
+      </a>
+      <a href="#diseases" class="btn btn-outline btn-lg">
+        <span>📚</span>
+        <span data-en="Browse Diseases" data-te="తెగుళ్ళ జాబితా">Browse Diseases</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">18</div>
+        <div class="stat-label" data-en="Disease Classes" data-te="తెగుల్ రకాలు">Disease Classes</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">6</div>
+        <div class="stat-label" data-en="Crop Types" data-te="పంట రకాలు">Crop Types</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">MobileNetV2</div>
+        <div class="stat-label" data-en="AI Architecture" data-te="AI నిర్మాణం">AI Architecture</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="leaf-circle">
+      <div class="leaf-inner">
+        <div class="leaf-emoji">🌱</div>
+        <div class="pulse-ring ring-1"></div>
+        <div class="pulse-ring ring-2"></div>
+        <div class="pulse-ring ring-3"></div>
+      </div>
+    </div>
+    <div class="floating-cards">
+      <div class="float-card card-1">🍅 Tomato Disease</div>
+      <div class="float-card card-2">✅ 96.8% Accuracy</div>
+      <div class="float-card card-3">🌽 Corn Rust</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ HOW IT WORKS ═══════════════════════ -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-en="How It Works" data-te="ఇది ఎలా పని చేస్తుంది">How It Works</h2>
+      <p class="section-subtitle" data-en="Three simple steps to identify and treat crop diseases" data-te="పంట తెగుళ్ళను గుర్తించి చికిత్స చేయడానికి మూడు సులభ దశలు">Three simple steps to identify and treat crop diseases</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">📸</div>
+        <div class="step-number">01</div>
+        <h3 data-en="Upload Leaf Photo" data-te="ఆకు ఫోటో అప్‌లోడ్ చేయండి">Upload Leaf Photo</h3>
+        <p data-en="Take a clear photo of the affected crop leaf or choose from your gallery. Support JPG, PNG, and WEBP formats." data-te="దెబ్బతిన్న ఆకు యొక్క స్పష్టమైన ఫోటో తీయండి. JPG, PNG, WEBP ఫార్మాట్లు అంగీకరిస్తాము.">Take a clear photo of the affected crop leaf or choose from your gallery. Support JPG, PNG, and WEBP formats.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-icon">🤖</div>
+        <div class="step-number">02</div>
+        <h3 data-en="AI Analysis" data-te="AI విశ్లేషణ">AI Analysis</h3>
+        <p data-en="Our MobileNetV2 deep learning model analyzes the image and identifies the disease with confidence scoring across 18 disease classes." data-te="మా MobileNetV2 మోడల్ చిత్రాన్ని విశ్లేషించి 18 తెగుల్ రకాల్లో రోగాన్ని నిర్ధారిస్తుంది.">Our MobileNetV2 deep learning model analyzes the image and identifies the disease with confidence scoring across 18 disease classes.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-icon">💊</div>
+        <div class="step-number">03</div>
+        <h3 data-en="Get Treatment Plan" data-te="చికిత్స ప్రణాళిక పొందండి">Get Treatment Plan</h3>
+        <p data-en="Receive detailed disease information, prevention strategies, safe treatment options, and expert consultation guidance." data-te="వివరణాత్మక తెగులు సమాచారం, నివారణ చర్యలు, సురక్షిత చికిత్స ఎంపికలు మరియు నిపుణుల సలహా పొందండి.">Receive detailed disease information, prevention strategies, safe treatment options, and expert consultation guidance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SUPPORTED CROPS ═══════════════════════ -->
+<section class="crops-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-en="Supported Crops" data-te="మద్దతు ఇవ్వబడిన పంటలు">Supported Crops</h2>
+    </div>
+    <div class="crops-grid">
+      <div class="crop-chip">🍎 <span data-en="Apple" data-te="యాపిల్">Apple</span></div>
+      <div class="crop-chip">🌽 <span data-en="Corn / Maize" data-te="మొక్కజొన్న">Corn / Maize</span></div>
+      <div class="crop-chip">🥔 <span data-en="Potato" data-te="బంగాళాదుంప">Potato</span></div>
+      <div class="crop-chip">🍅 <span data-en="Tomato" data-te="టమోటా">Tomato</span></div>
+      <div class="crop-chip">🫑 <span data-en="Bell Pepper" data-te="మిరప">Bell Pepper</span></div>
+      <div class="crop-chip">🌾 <span data-en="Rice / Paddy" data-te="వరి">Rice / Paddy</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DETECT SECTION ═══════════════════════ -->
+<section id="detect" class="detect-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-en="🔬 Detect Crop Disease" data-te="🔬 పంట తెగులు గుర్తించు">🔬 Detect Crop Disease</h2>
+      <p class="section-subtitle" data-en="Upload a clear, well-lit photo of a single crop leaf for best results" data-te="ఒక ఆకు మాత్రమే, స్పష్టంగా కనిపించే ఫోటో అప్‌లోడ్ చేయండి">Upload a clear, well-lit photo of a single crop leaf for best results</p>
+    </div>
+
+    <div class="detect-layout">
+      <!-- Upload Card -->
+      <div class="upload-card" id="uploadCard">
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">
+            <h3 data-en="Drop leaf image here" data-te="ఇక్కడ ఆకు చిత్రాన్ని వదలండి">Drop leaf image here</h3>
+            <p data-en="or click to browse your files" data-te="లేదా మీ ఫైళ్ళు బ్రౌజ్ చేయడానికి నొక్కండి">or click to browse your files</p>
+          </div>
+          <div class="upload-formats" data-en="Supported: JPG, JPEG, PNG, WEBP • Max 10 MB" data-te="అంగీకరించే ఫార్మాట్లు: JPG, JPEG, PNG, WEBP • గరిష్టం 10 MB">Supported: JPG, JPEG, PNG, WEBP • Max 10 MB</div>
+          <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp" hidden />
+        </div>
+
+        <div class="upload-buttons">
+          <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">
+            <span>📁</span>
+            <span data-en="Choose File" data-te="ఫైల్ ఎంచుకోండి">Choose File</span>
+          </button>
+          <button class="btn btn-outline" id="cameraBtn">
+            <span>📱</span>
+            <span data-en="Use Camera" data-te="కెమెరా వాడండి">Use Camera</span>
+          </button>
+        </div>
+
+        <!-- Camera capture UI -->
+        <div class="camera-container hidden" id="cameraContainer">
+          <video id="cameraVideo" autoplay playsinline></video>
+          <div class="camera-controls">
+            <button class="btn btn-primary" id="captureBtn">📸 <span data-en="Capture" data-te="తీయండి">Capture</span></button>
+            <button class="btn btn-outline" id="closeCameraBtn">✖ <span data-en="Close" data-te="మూసివేయి">Close</span></button>
+          </div>
+          <canvas id="captureCanvas" hidden></canvas>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-container hidden" id="previewContainer">
+          <img id="previewImage" src="" alt="Preview" class="preview-img" />
+          <div class="preview-info" id="previewInfo"></div>
+          <div class="preview-actions">
+            <button class="btn btn-primary btn-lg" id="analyzeBtn">
+              <span class="btn-icon">🔬</span>
+              <span data-en="Analyze with AI" data-te="AI తో విశ్లేషించు">Analyze with AI</span>
+            </button>
+            <button class="btn btn-outline" id="clearBtn">
+              <span>🗑</span>
+              <span data-en="Clear" data-te="తీసివేయి">Clear</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sample Images -->
+        <div class="sample-section">
+          <p class="sample-label" data-en="Try with sample images:" data-te="నమూనా చిత్రాలతో ప్రయత్నించండి:">Try with sample images:</p>
+          <div class="sample-grid" id="sampleGrid"></div>
+        </div>
+
+        <!-- Tips -->
+        <div class="upload-tips">
+          <h4 data-en="📋 Tips for best results" data-te="📋 మంచి ఫలితాల కోసం చిట్కాలు">📋 Tips for best results</h4>
+          <ul>
+            <li data-en="Use natural daylight — avoid harsh shadows or flash glare" data-te="సహజ వెలుతురులో తీయండి — నీడలు మరియు వెలుతురు చాలా ఎక్కువగా ఉండకూడదు">Use natural daylight — avoid harsh shadows or flash glare</li>
+            <li data-en="Frame a single leaf filling most of the photo" data-te="ఒక్క ఆకు మాత్రమే ఫోటో నిండా కనిపించేలా తీయండి">Frame a single leaf filling most of the photo</li>
+            <li data-en="Hold camera steady for a sharp, focused image" data-te="ఫోటో స్పష్టంగా రావడానికి కెమెరాను స్థిరంగా పట్టుకోండి">Hold camera steady for a sharp, focused image</li>
+            <li data-en="Capture the symptomatic area (lesions, spots, mold)" data-te="తెగులు లక్షణాలు (మచ్చలు, బూజు) ఉన్న ప్రాంతాన్ని ఫోటో తీయండి">Capture the symptomatic area (lesions, spots, mold)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loading-card">
+          <div class="loading-spinner"></div>
+          <h3 data-en="Analyzing Leaf..." data-te="ఆకును విశ్లేషిస్తోంది...">Analyzing Leaf...</h3>
+          <p data-en="Our AI model is processing your image" data-te="మా AI మోడల్ మీ చిత్రాన్ని ప్రాసెస్ చేస్తోంది">Our AI model is processing your image</p>
+          <div class="loading-steps">
+            <div class="ls-step active" data-en="Quality Check" data-te="నాణ్యత తనిఖీ">Quality Check</div>
+            <div class="ls-arrow">→</div>
+            <div class="ls-step" data-en="AI Inference" data-te="AI అనుమానం">AI Inference</div>
+            <div class="ls-arrow">→</div>
+            <div class="ls-step" data-en="Results Ready" data-te="ఫలితాలు సిద్ధం">Results Ready</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="results-panel hidden" id="resultsPanel">
+        <!-- filled by JavaScript -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DASHBOARD ═══════════════════════ -->
+<section id="dashboard" class="dashboard-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-en="📊 Dashboard" data-te="📊 డాష్‌బోర్డ్">📊 Dashboard</h2>
+      <button class="btn btn-outline btn-sm" onclick="loadDashboard()">🔄 <span data-en="Refresh" data-te="రిఫ్రెష్">Refresh</span></button>
+    </div>
+
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card skeleton"></div>
+      <div class="stat-card skeleton"></div>
+      <div class="stat-card skeleton"></div>
+      <div class="stat-card skeleton"></div>
+    </div>
+
+    <div class="dashboard-row">
+      <div class="chart-card">
+        <h3 data-en="Disease Distribution" data-te="తెగుల్ పంపిణీ">Disease Distribution</h3>
+        <div id="diseaseChartContainer">
+          <canvas id="diseaseChart" height="240"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3 data-en="Health vs Disease Ratio" data-te="ఆరోగ్యం vs తెగులు నిష్పత్తి">Health vs Disease Ratio</h3>
+        <canvas id="healthChart" height="240"></canvas>
+      </div>
+    </div>
+
+    <!-- History Table -->
+    <div class="history-card">
+      <div class="history-header">
+        <h3 data-en="📋 Recent Detections" data-te="📋 ఇటీవలి గుర్తింపులు">📋 Recent Detections</h3>
+        <button class="btn btn-danger btn-sm" id="clearHistoryBtn">
+          🗑 <span data-en="Clear All History" data-te="అన్ని చరిత్ర తొలగించు">Clear All History</span>
+        </button>
+      </div>
+      <div class="history-table-wrapper">
+        <table class="history-table" id="historyTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th data-en="Image" data-te="చిత్రం">Image</th>
+              <th data-en="Crop" data-te="పంట">Crop</th>
+              <th data-en="Disease" data-te="తెగులు">Disease</th>
+              <th data-en="Confidence" data-te="నమ్మకం">Confidence</th>
+              <th data-en="Date" data-te="తేదీ">Date</th>
+              <th data-en="Action" data-te="చర్య">Action</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr><td colspan="7" class="table-empty" data-en="No detections yet. Upload a leaf image to begin." data-te="ఇంకా గుర్తింపులు లేవు. ఆకు చిత్రం అప్‌లోడ్ చేయండి.">No detections yet. Upload a leaf image to begin.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DISEASE BROWSER ═══════════════════════ -->
+<section id="diseases" class="diseases-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-en="🦠 Disease Knowledge Base" data-te="🦠 తెగులు జ్ఞాన భాండాగారం">🦠 Disease Knowledge Base</h2>
+      <p class="section-subtitle" data-en="Browse detailed information about all supported crop diseases" data-te="మద్దతు ఇవ్వబడిన అన్ని పంట తెగుళ్ళ గురించి వివరణాత్మక సమాచారాన్ని చూడండి">Browse detailed information about all supported crop diseases</p>
+    </div>
+
+    <div class="disease-search-bar">
+      <input type="text" id="diseaseSearch" placeholder="🔍 Search disease or crop name..." class="search-input" />
+      <div class="filter-chips">
+        <button class="filter-chip active" data-filter="all" data-en="All" data-te="అన్నీ">All</button>
+        <button class="filter-chip" data-filter="Apple" data-en="Apple" data-te="యాపిల్">Apple</button>
+        <button class="filter-chip" data-filter="Tomato" data-en="Tomato" data-te="టమోటా">Tomato</button>
+        <button class="filter-chip" data-filter="Potato" data-en="Potato" data-te="బంగాళాదుంప">Potato</button>
+        <button class="filter-chip" data-filter="Corn" data-en="Corn" data-te="మొక్కజొన్న">Corn</button>
+        <button class="filter-chip" data-filter="Rice" data-en="Rice" data-te="వరి">Rice</button>
+        <button class="filter-chip" data-filter="Pepper" data-en="Pepper" data-te="మిరప">Pepper</button>
+      </div>
+    </div>
+
+    <div class="diseases-grid" id="diseasesGrid">
+      <div class="disease-loading" data-en="Loading disease catalog..." data-te="తెగుల్ కేటలాగ్ లోడ్ అవుతోంది...">Loading disease catalog...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DISEASE DETAIL MODAL ═══════════════════════ -->
+<div class="modal-overlay hidden" id="diseaseModal">
+  <div class="modal-card" id="diseaseModalContent">
+    <button class="modal-close" id="modalClose">✕</button>
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ═══════════════════════ ABOUT ═══════════════════════ -->
+<section id="about" class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content">
+        <h2 class="section-title" data-en="About This Project" data-te="ఈ ప్రాజెక్ట్ గురించి">About This Project</h2>
+        <p data-en="CropSense AI is an open-source agricultural AI project that applies deep learning to the challenge of early plant disease identification. It was built to provide accessible, science-backed guidance for smallholder farmers in India and globally." data-te="CropSense AI ఒక ఓపెన్ సోర్స్ వ్యవసాయ AI ప్రాజెక్ట్, ఇది చిన్న రైతులకు ముందస్తు పంట తెగులు గుర్తింపు కోసం అందుబాటులో ఉన్న శాస్త్రీయ మార్గదర్శకత్వాన్ని అందించడానికి నిర్మించబడింది.">
+          CropSense AI is an open-source agricultural AI project that applies deep learning to the challenge of early plant disease identification. It was built to provide accessible, science-backed guidance for smallholder farmers in India and globally.
+        </p>
+        <div class="tech-stack">
+          <h4 data-en="Technology Stack" data-te="సాంకేతిక స్టాక్">Technology Stack</h4>
+          <div class="tech-chips">
+            <span class="tech-chip">🤖 PyTorch MobileNetV2</span>
+            <span class="tech-chip">⚡ FastAPI</span>
+            <span class="tech-chip">🎨 Vanilla JS + CSS3</span>
+            <span class="tech-chip">🗄️ SQLite</span>
+            <span class="tech-chip">🖼 Pillow / PIL</span>
+            <span class="tech-chip">📊 PlantVillage Dataset</span>
+          </div>
+        </div>
+        <div class="disclaimer-box">
+          <h4>⚠️ <span data-en="Important Advisory Notice" data-te="ముఖ్యమైన సలహా నోటీసు">Important Advisory Notice</span></h4>
+          <p data-en="This AI system provides decision-support predictions only. It does not replace expert agronomic or plant pathological diagnosis. Always consult your local Krishi Vigyan Kendra (KVK) or Block Agriculture Officer for serious or widespread crop disease situations." data-te="ఈ AI వ్యవస్థ నిర్ణయ-మద్దతు అంచనాలను మాత్రమే అందిస్తుంది. తీవ్రమైన సందర్భాల్లో మీ స్థానిక వ్యవసాయ నిపుణుడిని లేదా KVKని సంప్రదించండి.">
+            This AI system provides decision-support predictions only. It does not replace expert agronomic or plant pathological diagnosis. Always consult your local Krishi Vigyan Kendra (KVK) or Block Agriculture Officer for serious or widespread crop disease situations.
+          </p>
+        </div>
+      </div>
+      <div class="about-stats">
+        <div class="about-stat-card">
+          <div class="about-stat-icon">🌾</div>
+          <h3 data-en="PlantVillage Dataset" data-te="PlantVillage డేటాసెట్">PlantVillage Dataset</h3>
+          <p data-en="54,303 labeled leaf images across 38 disease classes from Penn State University." data-te="Penn State University నుండి 38 తెగుల్ రకాలలో 54,303 లేబుల్ ఆకు చిత్రాలు.">54,303 labeled leaf images across 38 disease classes from Penn State University.</p>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-icon">🎯</div>
+          <h3 data-en="Model Architecture" data-te="మోడల్ నిర్మాణం">Model Architecture</h3>
+          <p data-en="MobileNetV2 with ImageNet pretrained weights, fine-tuned on plant disease data with cosine annealing." data-te="ImageNet ప్రీట్రెయిన్డ్ వెయిట్లతో MobileNetV2, కాసైన్ అన్నీలింగ్‌తో ఫైన్-ట్యూన్ చేయబడింది.">MobileNetV2 with ImageNet pretrained weights, fine-tuned on plant disease data with cosine annealing.</p>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-icon">📈</div>
+          <h3 data-en="Performance Benchmarks" data-te="పనితీరు బెంచ్‌మార్కులు">Performance Benchmarks</h3>
+          <p data-en="Achieves ~96.8% test accuracy on PlantVillage laboratory images. Real-world field performance varies based on image quality." data-te="PlantVillage లాబొరేటరీ చిత్రాలపై ~96.8% ఖచ్చితత్వం. ఫీల్డ్ ఇమేజ్ నాణ్యతను బట్టి ఫలితాలు మారవచ్చు.">Achieves ~96.8% test accuracy on PlantVillage laboratory images. Real-world field performance varies based on image quality.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-brand">
+          <span class="brand-leaf">🌿</span>
+          <span class="brand-text">CropSense <span class="brand-ai">AI</span></span>
+        </div>
+        <p data-en="AI-powered crop disease detection for a healthier, more productive agriculture." data-te="ఆరోగ్యకరమైన, మరింత ఉత్పాదక వ్యవసాయం కోసం AI ఆధారిత పంట తెగులు గుర్తింపు.">AI-powered crop disease detection for a healthier, more productive agriculture.</p>
+      </div>
+      <div class="footer-links">
+        <h4 data-en="Quick Links" data-te="త్వరిత లింకులు">Quick Links</h4>
+        <a href="#detect" data-en="Detect Disease" data-te="తెగులు గుర్తించు">Detect Disease</a>
+        <a href="#dashboard" data-en="Dashboard" data-te="డాష్‌బోర్డ్">Dashboard</a>
+        <a href="#diseases" data-en="Disease Database" data-te="తెగులు డేటాబేస్">Disease Database</a>
+        <a href="/api/docs" target="_blank">API Documentation</a>
+      </div>
+      <div class="footer-contact">
+        <h4 data-en="Disclaimer" data-te="నిరాకరణ">Disclaimer</h4>
+        <p data-en="For emergency crop disease outbreaks, contact your nearest Krishi Vigyan Kendra (KVK) or State Agriculture Department immediately." data-te="అత్యవసర తెగులు పరిస్థితుల్లో మీ సమీప KVK లేదా రాష్ట్ర వ్యవసాయ శాఖను వెంటనే సంప్రదించండి.">
+          For emergency crop disease outbreaks, contact your nearest Krishi Vigyan Kendra (KVK) or State Agriculture Department immediately.
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 CropSense AI. Open-source Agricultural AI.</p>
+      <p data-en="Predictions are advisory only — not a substitute for professional agronomic diagnosis." data-te="అంచనాలు సలహా మాత్రమే — నిపుణుల నిర్ధారణకు ప్రత్యామ్నాయం కాదు.">Predictions are advisory only — not a substitute for professional agronomic diagnosis.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
